@@ -1,0 +1,220 @@
+{
+  "Claims Processing": [
+    {
+      "number": 1,
+      "title": "Submit EDI 837-P Claims",
+      "description": "As a behavioral health provider, I want to submit HIPAA-compliant EDI 837-P claims for outpatient behavioral health services, so that I can be reimbursed for services provided to patients while ensuring compliance with federal regulations",
+      "acceptance_criteria": [
+        "System accepts claims with valid NPI/Tax ID (verified via NPPES registry)",
+        "System validates CPT codes against BH-specific NUCC taxonomy (e.g., 261QM0850X)",
+        "System rejects claims missing required loops (e.g., Loop 2010AA for provider info per X12 837-P TR3)",
+        "System logs submission timestamps for 42 CFR Part 2 audit trails",
+        "System validates Place of Service (POS) codes (e.g., POS 02 for telehealth per CMS MLN909432)",
+        "System flags potential duplicate claims based on NCCI MUE thresholds for H-codes"
+      ],
+      "stakeholders": "Behavioral health providers, claims processors",
+      "regulatory_reference": "HIPAA, 42 CFR Part 2, CMS MLN909432, NCCI",
+      "priority": "High"
+    }
+  ],
+  "Eligibility Verification": [],
+  "Pre-authorization Workflows": [
+    {
+      "number": 1,
+      "title": "Pre-Authorization Request Submission",
+      "description": "As a healthcare provider, I want to submit a pre-authorization request for a patient's services, so that the patient's insurance coverage can be verified before treatment.",
+      "acceptance_criteria": [
+        "The system should allow providers to submit pre-authorization requests electronically.",
+        "The system should validate all required fields in the pre-authorization request.",
+        "The system should provide immediate feedback to the provider upon submission.",
+        "The system should track the status of all pre-authorization requests."
+      ],
+      "stakeholders": "Healthcare providers, insurance payers, patients",
+      "regulatory_reference": "HIPAA, state regulations",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "Pre-Authorization Clinical Review",
+      "description": "As a clinical reviewer, I want to review pre-authorization requests and determine medical necessity, so that I can make informed decisions about approving or denying services.",
+      "acceptance_criteria": [
+        "The system should provide a clear and concise view of the pre-authorization request information.",
+        "The system should provide access to the patient's medical records.",
+        "The system should allow clinical reviewers to document their review and decision.",
+        "The system should track the clinical review process and timeline."
+      ],
+      "stakeholders": "Clinical reviewers, healthcare providers, insurance payers",
+      "regulatory_reference": "HIPAA, state regulations",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "Pre-Authorization Business Rules Engine",
+      "description": "As a system administrator, I want to configure business rules to automate pre-authorization decisions, so that the process is efficient and consistent.",
+      "acceptance_criteria": [
+        "The system should allow administrators to define and manage pre-authorization rules.",
+        "The system should apply the rules automatically to incoming pre-authorization requests.",
+        "The system should provide reporting and auditing of the rule application process.",
+        "The system should be flexible and adaptable to changing business needs."
+      ],
+      "stakeholders": "System administrators, insurance payers, IT",
+      "regulatory_reference": "None",
+      "priority": "Medium"
+    },
+    {
+      "number": 4,
+      "title": "Pre-Authorization Notification",
+      "description": "As a healthcare provider, I want to receive notification of the pre-authorization decision, so that I can inform the patient and proceed with treatment.",
+      "acceptance_criteria": [
+        "The system should provide immediate notification to the provider upon decision.",
+        "The notification should include the decision, rationale, and any additional information.",
+        "The notification should be delivered electronically via secure channels."
+      ],
+      "stakeholders": "Healthcare providers, insurance payers, patients",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    },
+    {
+      "number": 5,
+      "title": "Pre-Authorization Code Generation",
+      "description": "As a system, I want to generate unique authorization codes for approved pre-authorization requests, so that these codes can be used to track utilization and billing.",
+      "acceptance_criteria": [
+        "The system should generate unique, alphanumeric codes for each approved request.",
+        "The codes should be easily identifiable and trackable.",
+        "The codes should be securely stored and accessed."
+      ],
+      "stakeholders": "System administrators, insurance payers, billing staff",
+      "regulatory_reference": "None",
+      "priority": "Medium"
+    }
+  ],
+  "Provider Data Management": [
+    {
+      "number": 1,
+      "title": "Onboard a new provider",
+      "description": "As a provider enrollment specialist, I want to onboard a new provider into the system, so that they can begin submitting claims.",
+      "acceptance_criteria": [
+        "The system should collect all required provider information (name, address, NPI, taxonomy codes, etc.)",
+        "The system should validate the NPI against the NPPES database",
+        "The system should verify the provider's taxonomy codes",
+        "The system should store the provider's information securely and accurately"
+      ],
+      "stakeholders": "Provider enrollment specialists, providers",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "Credential a provider",
+      "description": "As a credentialing specialist, I want to credential a provider, so that they can be verified and approved to submit claims.",
+      "acceptance_criteria": [
+        "The system should allow for the upload of all necessary credentialing documents",
+        "The system should track the status of the credentialing process",
+        "The system should notify the provider of the credentialing status",
+        "The system should ensure that all credentialing requirements are met before approving the provider"
+      ],
+      "stakeholders": "Credentialing specialists, providers",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "Validate NPI",
+      "description": "As a system administrator, I want to validate the NPI of a provider, so that I can ensure the accuracy of provider data.",
+      "acceptance_criteria": [
+        "The system should verify the NPI against the NPPES database in real-time",
+        "The system should provide feedback to the user if the NPI is invalid",
+        "The system should handle NPI validation errors gracefully",
+        "The system should log all NPI validation attempts"
+      ],
+      "stakeholders": "System administrators, providers",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    },
+    {
+      "number": 4,
+      "title": "Maintain taxonomy codes",
+      "description": "As a provider, I want to maintain my taxonomy codes, so that my services are accurately categorized and reimbursed.",
+      "acceptance_criteria": [
+        "The system should allow providers to view and update their taxonomy codes",
+        "The system should validate taxonomy codes against a current taxonomy code list",
+        "The system should provide feedback to the provider if the taxonomy codes are invalid",
+        "The system should prevent providers from entering duplicate taxonomy codes"
+      ],
+      "stakeholders": "Providers, system administrators",
+      "regulatory_reference": "NUCC",
+      "priority": "Medium"
+    }
+  ],
+  "System Rules & Business Requirements": [
+    {
+      "number": 1,
+      "title": "HIPAA Compliance for Claims Submission",
+      "description": "As a system administrator, I want to ensure that all claims submissions comply with HIPAA regulations, so that we avoid penalties and maintain patient privacy.",
+      "acceptance_criteria": [
+        "All claims data is encrypted during transmission and storage",
+        "Claims data includes only necessary patient information",
+        "Access to claims data is restricted to authorized personnel",
+        "Audit trails are maintained for all claims submissions and access"
+      ],
+      "stakeholders": "System Administrator, Compliance Officer",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "CMS Program Integrity Compliance",
+      "description": "As a claims processor, I want to ensure that all claims comply with CMS program integrity requirements, so that we avoid payment denials and maintain compliance.",
+      "acceptance_criteria": [
+        "Claims are screened for potential fraud, waste, and abuse",
+        "Claims data is validated against CMS guidelines",
+        "Appropriate documentation is maintained for all claims",
+        "Regular audits are conducted to monitor compliance"
+      ],
+      "stakeholders": "Claims Processor, Compliance Officer",
+      "regulatory_reference": "CMS Pub. 100-08",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "42 CFR Part 2 Compliance for Substance Use Disorder Information",
+      "description": "As a behavioral health provider, I want to ensure that all substance use disorder information is handled in compliance with 42 CFR Part 2, so that patient confidentiality is maintained.",
+      "acceptance_criteria": [
+        "Access to substance use disorder information is restricted to authorized personnel",
+        "Substance use disorder information is not disclosed without patient consent",
+        "Appropriate safeguards are in place to protect substance use disorder information",
+        "Audit trails are maintained for all access to substance use disorder information"
+      ],
+      "stakeholders": "Behavioral Health Provider, Compliance Officer",
+      "regulatory_reference": "42 CFR Part 2",
+      "priority": "High"
+    },
+    {
+      "number": 4,
+      "title": "NCCI Edits and MUE Threshold Compliance",
+      "description": "As a claims processor, I want the system to automatically check claims against NCCI edits and MUE thresholds, so that we avoid payment denials and ensure accurate billing.",
+      "acceptance_criteria": [
+        "Claims are automatically checked against current NCCI edits and MUE thresholds",
+        "Claims with errors are flagged for review and correction",
+        "Reports are generated to track NCCI edit and MUE threshold violations"
+      ],
+      "stakeholders": "Claims Processor, Compliance Officer",
+      "regulatory_reference": "NCCI",
+      "priority": "Medium"
+    },
+    {
+      "number": 5,
+      "title": "Audit Trail for Healthcare Data",
+      "description": "As a compliance officer, I want a comprehensive audit trail for all healthcare data, so that we can track access, modifications, and deletions.",
+      "acceptance_criteria": [
+        "All access, modifications, and deletions of healthcare data are logged",
+        "Audit logs include timestamps, user IDs, and details of the actions performed",
+        "Audit logs are securely stored and protected from unauthorized access",
+        "Audit logs are regularly reviewed and analyzed"
+      ],
+      "stakeholders": "Compliance Officer, System Administrator",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    }
+  ]
+}

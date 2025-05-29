@@ -1,0 +1,354 @@
+```json
+{
+  "Claims Processing": [
+    {
+      "number": 1,
+      "title": "Accept EDI 837-P Submissions for Outpatient BH Services",
+      "description": "As a behavioral health provider, I want to submit HIPAA-compliant EDI 837-P claims for outpatient behavioral health services, so that I can be reimbursed for services provided to patients while ensuring compliance with federal regulations.",
+      "acceptance_criteria": [
+        "System accepts claims with valid NPI/Tax ID (verified via NPPES registry)",
+        "System validates CPT codes against BH-specific NUCC taxonomy (e.g., 261QM0850X)",
+        "System rejects claims missing required loops (e.g., Loop 2010AA for provider info per X12 837-P TR3)",
+        "System logs submission timestamps for 42 CFR Part 2 audit trails",
+        "System validates Place of Service (POS) codes (e.g., POS 02 for telehealth per CMS MLN909432)",
+        "System flags potential duplicate claims based on NCCI MUE thresholds for H-codes"
+      ],
+      "stakeholders": "Behavioral health providers, claims processors, SIU analysts",
+      "regulatory_reference": "HIPAA, CMS, 42 CFR Part 2, NCCI, X12 837-P TR3, CMS MLN909432",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "Validate Provider Information in EDI 837 Claims",
+      "description": "As a claims processor, I want to validate provider information (NPI, taxonomy codes) in all incoming EDI 837 claims, so that I can ensure that claims are submitted by authorized providers and meet regulatory requirements.",
+      "acceptance_criteria": [
+        "System verifies NPI against NPPES registry",
+        "System validates NUCC taxonomy codes against provider specialty",
+        "System flags claims with invalid or missing provider information",
+        "System rejects claims from unauthorized providers",
+        "System logs all provider validation activities for audit trails"
+      ],
+      "stakeholders": "Claims processors, compliance officers, providers",
+      "regulatory_reference": "HIPAA, NPPES, NUCC",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "Implement NCCI Edits and MUE Threshold Checks",
+      "description": "As a claims processor, I want the system to automatically apply NCCI edits and MUE thresholds during claims processing, so that I can identify and prevent improper billing practices.",
+      "acceptance_criteria": [
+        "System applies all relevant NCCI edits based on submitted codes",
+        "System flags claims exceeding MUE thresholds",
+        "System provides clear explanations for identified edits and thresholds",
+        "System allows for manual override of edits with appropriate justifications and audit trails"
+      ],
+      "stakeholders": "Claims processors, compliance officers, SIU members",
+      "regulatory_reference": "NCCI",
+      "priority": "High"
+    },
+    {
+      "number": 4,
+      "title": "Ensure HIPAA Compliant Data Storage and Transmission",
+      "description": "As a system administrator, I want to ensure that all patient data is stored and transmitted securely and in compliance with HIPAA regulations, so that we protect patient privacy and comply with federal law.",
+      "acceptance_criteria": [
+        "System encrypts all patient data at rest and in transit",
+        "System implements appropriate access controls to restrict data access",
+        "System maintains audit trails of all data access and modifications",
+        "System complies with all HIPAA security and privacy rules"
+      ],
+      "stakeholders": "System administrators, compliance officers, IT security",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    }
+  ],
+  "Eligibility Verification": [
+    {
+      "number": 1,
+      "title": "Verify Provider NPI using NPPES API",
+      "description": "As a claims processor, I want to verify the provider's National Provider Identifier (NPI) using the NPPES API, so that I can ensure the provider is valid and prevent fraudulent claims.",
+      "acceptance_criteria": [
+        "The system successfully connects to the NPPES API.",
+        "The system accurately retrieves the provider's NPI information.",
+        "The system validates the NPI against the information provided on the claim.",
+        "The system handles API errors gracefully and reports them to the user."
+      ],
+      "stakeholders": "Claims processors, Compliance officers",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "Verify Member Eligibility",
+      "description": "As a claims processor, I want to verify member eligibility in real-time, so that I can ensure the services are covered under the member's plan before processing the claim.",
+      "acceptance_criteria": [
+        "The system integrates with the eligibility verification system.",
+        "The system accurately retrieves member eligibility information.",
+        "The system displays eligibility information clearly to the user.",
+        "The system handles eligibility errors and reports them to the user."
+      ],
+      "stakeholders": "Claims processors, Member services representatives",
+      "regulatory_reference": "State-specific regulations",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "Validate Place of Service (POS) Codes",
+      "description": "As a claims processor, I want to validate the Place of Service (POS) codes against the provided information, so that I can ensure the services were provided at an appropriate location and prevent fraudulent claims.",
+      "acceptance_criteria": [
+        "The system validates POS codes against CMS guidelines.",
+        "The system flags invalid POS codes.",
+        "The system provides clear error messages for invalid POS codes."
+      ],
+      "stakeholders": "Claims processors, Compliance officers",
+      "regulatory_reference": "CMS guidelines, State-specific regulations",
+      "priority": "Medium"
+    },
+    {
+      "number": 4,
+      "title": "Validate Covered Services",
+      "description": "As a claims processor, I want to validate that the services provided are covered under the member's plan, so that I can prevent payment for non-covered services.",
+      "acceptance_criteria": [
+        "The system checks the member's plan benefits.",
+        "The system identifies non-covered services.",
+        "The system provides clear explanations of why services are non-covered."
+      ],
+      "stakeholders": "Claims processors, Member services representatives",
+      "regulatory_reference": "State-specific regulations",
+      "priority": "High"
+    },
+    {
+      "number": 5,
+      "title": "Check for Duplicate Claims",
+      "description": "As a claims processor, I want to check for duplicate claims, so that I can prevent duplicate payments.",
+      "acceptance_criteria": [
+        "The system identifies potential duplicate claims based on claim information.",
+        "The system flags potential duplicates for review by a claims processor.",
+        "The system provides tools for claims processors to investigate potential duplicates."
+      ],
+      "stakeholders": "Claims processors, Special Investigation Unit (SIU) members",
+      "regulatory_reference": "State-specific regulations",
+      "priority": "Medium"
+    }
+  ],
+  "Pre-authorization Workflows": [
+    {
+      "number": 1,
+      "title": "Pre-Authorization Request Submission",
+      "description": "As a healthcare provider, I want to submit a pre-authorization request for a patient's services, so that the request can be processed and approved or denied.",
+      "acceptance_criteria": [
+        "The system accepts pre-authorization requests in the correct format.",
+        "The system validates the provider's NPI and Tax ID.",
+        "The system validates the patient's demographic information.",
+        "The system validates the requested services.",
+        "The system submits the request to the payer.",
+        "The system provides a confirmation number for the request."
+      ],
+      "stakeholders": "Healthcare providers, payers, patients",
+      "regulatory_reference": "HIPAA, CMS",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "Pre-Authorization Request Review and Approval",
+      "description": "As a payer representative, I want to review and approve or deny pre-authorization requests, so that I can ensure that services are medically necessary and covered by the plan.",
+      "acceptance_criteria": [
+        "The system displays pre-authorization requests in a clear and concise format.",
+        "The system allows the payer representative to review the patient's medical information.",
+        "The system allows the payer representative to approve or deny the request.",
+        "The system provides a reason for denial if the request is denied.",
+        "The system updates the status of the request.",
+        "The system notifies the provider of the decision."
+      ],
+      "stakeholders": "Payers, healthcare providers, patients",
+      "regulatory_reference": "HIPAA, CMS",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "Pre-Authorization Status Tracking",
+      "description": "As a healthcare provider, I want to track the status of pre-authorization requests, so that I can know when a decision has been made.",
+      "acceptance_criteria": [
+        "The system allows the provider to view the status of all submitted requests.",
+        "The system provides real-time updates on the status of requests.",
+        "The system notifies the provider when a decision has been made.",
+        "The system allows the provider to download a copy of the decision."
+      ],
+      "stakeholders": "Healthcare providers, payers",
+      "regulatory_reference": "HIPAA",
+      "priority": "Medium"
+    },
+    {
+      "number": 4,
+      "title": "Pre-Authorization Appeals Process",
+      "description": "As a healthcare provider, I want to be able to appeal a denied pre-authorization request, so that I can ensure that my patient receives the necessary services.",
+      "acceptance_criteria": [
+        "The system allows the provider to submit an appeal for a denied request.",
+        "The system provides a clear and concise explanation of the appeals process.",
+        "The system tracks the status of appeals.",
+        "The system notifies the provider of the decision on the appeal."
+      ],
+      "stakeholders": "Healthcare providers, payers",
+      "regulatory_reference": "HIPAA, CMS",
+      "priority": "Medium"
+    }
+  ],
+  "Provider Data Management": [
+    {
+      "number": 1,
+      "title": "Provider Enrollment: Verify NPI and Taxonomy Codes",
+      "description": "As a provider enrollment specialist, I want to verify that provider NPIs and NUCC taxonomy codes are valid and current, so that we can ensure compliance with HIPAA and state regulations and avoid payment delays.",
+      "acceptance_criteria": [
+        "The system must validate NPIs against the NPPES database.",
+        "The system must validate taxonomy codes against the NUCC taxonomy database.",
+        "The system must flag invalid or missing NPI and taxonomy codes.",
+        "The system must provide clear error messages for invalid NPI and taxonomy codes."
+      ],
+      "stakeholders": "Provider enrollment specialists, providers, compliance officers",
+      "regulatory_reference": "HIPAA, State-specific provider licensing regulations",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "Provider Data Management: Maintain Accurate Provider Information",
+      "description": "As a compliance officer, I want to maintain accurate and up-to-date provider information, so that we can ensure compliance with HIPAA and other regulations and avoid claims processing errors.",
+      "acceptance_criteria": [
+        "The system must allow for easy updates to provider information.",
+        "The system must maintain a complete audit trail of all provider data changes.",
+        "The system must provide notifications for upcoming provider license expirations.",
+        "The system must integrate with the NPPES database for NPI updates."
+      ],
+      "stakeholders": "Compliance officers, provider enrollment specialists, claims processors",
+      "regulatory_reference": "HIPAA, State-specific provider licensing regulations",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "Provider Credentialing: Manage Provider Credentials",
+      "description": "As a provider credentialing specialist, I want to manage provider credentials (licenses, certifications, etc.), so that we can ensure that providers meet our requirements and comply with regulations.",
+      "acceptance_criteria": [
+        "The system must allow for secure storage and management of provider credentials.",
+        "The system must provide notifications for upcoming credential expirations.",
+        "The system must allow for easy access to provider credentials by authorized personnel.",
+        "The system must maintain a complete audit trail of all credential changes."
+      ],
+      "stakeholders": "Provider credentialing specialists, compliance officers, provider network management",
+      "regulatory_reference": "State-specific provider licensing regulations, HIPAA",
+      "priority": "Medium"
+    },
+    {
+      "number": 4,
+      "title": "Provider Network Management: Manage Provider Network Participation",
+      "description": "As a provider network manager, I want to manage provider participation in our network, so that we can ensure that we have adequate provider coverage and meet the needs of our members.",
+      "acceptance_criteria": [
+        "The system must allow for easy addition and removal of providers from the network.",
+        "The system must provide a mechanism for tracking provider participation agreements.",
+        "The system must provide reports on provider network coverage.",
+        "The system must integrate with other systems to manage provider contracts."
+      ],
+      "stakeholders": "Provider network managers, provider enrollment specialists, contract managers",
+      "regulatory_reference": "State-specific regulations on provider networks",
+      "priority": "Medium"
+    }
+  ],
+  "System Rules & Business Requirements": [
+    {
+      "number": 1,
+      "title": "HIPAA Compliant Claims Submission",
+      "description": "System shall accept and process EDI 837-P/I claims adhering to HIPAA transaction standards and code sets (e.g., 5010 version).",
+      "acceptance_criteria": [
+        "System successfully validates all required data segments and codes within the 837 transaction.",
+        "System rejects claims with invalid or missing data elements as per HIPAA guidelines.",
+        "System encrypts and transmits claims data securely according to HIPAA security rules.",
+        "System maintains an audit trail of all claim submissions and processing activities."
+      ],
+      "stakeholders": "Healthcare providers, claims processors, compliance officers",
+      "regulatory_reference": "HIPAA",
+      "priority": "High"
+    },
+    {
+      "number": 2,
+      "title": "CMS Program Integrity Compliance",
+      "description": "System shall incorporate CMS Program Integrity requirements (Pub. 100-08) into claims processing workflow.",
+      "acceptance_criteria": [
+        "System performs all required edits and validations as defined in Pub 100-08.",
+        "System flags potential fraud, waste, and abuse indicators based on CMS guidelines.",
+        "System generates reports summarizing program integrity findings.",
+        "System supports appropriate actions based on identified program integrity issues."
+      ],
+      "stakeholders": "Claims processors, compliance officers, Special Investigation Unit (SIU) members",
+      "regulatory_reference": "CMS Pub. 100-08",
+      "priority": "High"
+    },
+    {
+      "number": 3,
+      "title": "OIG Compliance Integration",
+      "description": "System shall ensure compliance with Office of Inspector General (OIG) guidelines.",
+      "acceptance_criteria": [
+        "System incorporates OIG compliance requirements into all relevant workflows.",
+        "System flags potential OIG violations based on established guidelines.",
+        "System provides reporting capabilities for OIG compliance monitoring.",
+        "System supports necessary actions to address identified OIG compliance issues."
+      ],
+      "stakeholders": "Compliance officers, SIU members",
+      "regulatory_reference": "OIG Compliance Guidelines",
+      "priority": "High"
+    },
+    {
+      "number": 4,
+      "title": "42 CFR Part 2 Compliance for Substance Use Disorder Information",
+      "description": "System shall handle substance use disorder information according to 42 CFR Part 2.",
+      "acceptance_criteria": [
+        "System restricts access to substance use disorder information as defined in 42 CFR Part 2.",
+        "System ensures appropriate authorization and consent mechanisms for accessing and disclosing substance use disorder information.",
+        "System maintains an audit trail of all access and disclosure events related to substance use disorder information.",
+        "System adheres to all other requirements for the handling of protected health information under 42 CFR Part 2."
+      ],
+      "stakeholders": "Behavioral health providers, claims processors, compliance officers",
+      "regulatory_reference": "42 CFR Part 2",
+      "priority": "High"
+    },
+    {
+      "number": 5,
+      "title": "NCCI Edits and MUE Thresholds Validation",
+      "description": "System shall validate claims against National Correct Coding Initiative (NCCI) edits and Medicare Multiple Evaluation Units (MUE) thresholds.",
+      "acceptance_criteria": [
+        "System correctly identifies and flags claims containing invalid code combinations as per NCCI edits.",
+        "System accurately detects claims exceeding Medicare MUEs for specific HCPCS codes.",
+        "System provides clear explanations for all identified NCCI edit and MUE violations.",
+        "System allows for manual override of NCCI edits and MUEs with proper audit trail and justification."
+      ],
+      "stakeholders": "Medical coders, claims processors",
+      "regulatory_reference": "NCCI edits and MUE thresholds",
+      "priority": "Medium"
+    },
+    {
+      "number": 6,
+      "title": "Behavioral Health Service Code Validation",
+      "description": "System shall validate behavioral health-specific service codes (H-codes, CPT ranges).",
+      "acceptance_criteria": [
+        "System validates H-codes against a current and updated code set.",
+        "System validates CPT codes within designated behavioral health ranges against the appropriate code set.",
+        "System provides detailed error messages for invalid behavioral health service codes.",
+        "System includes a mechanism for managing updates to the behavioral health code sets."
+      ],
+      "stakeholders": "Behavioral health providers, medical coders",
+      "regulatory_reference": "CPT, HCPCS, ICD-10",
+      "priority": "Medium"
+    },
+    {
+      "number": 7,
+      "title": "Place of Service (POS) Code Validation",
+      "description": "System shall validate Place of Service (POS) codes, considering their regulatory implications.",
+      "acceptance_criteria": [
+        "System validates POS codes against a current and updated code set.",
+        "System flags inappropriate or inconsistent POS codes based on the claim details.",
+        "System provides detailed error messages for invalid POS codes.",
+        "System considers telehealth-specific POS codes and regulations (e.g., POS 02)."
+      ],
+      "stakeholders": "Behavioral health providers, medical coders",
+      "regulatory_reference": "CMS guidelines, state-specific regulations",
+      "priority": "Medium"
+    }
+  ]
+}
+```
